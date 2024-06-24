@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPD</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            font-family: Arial, sans-serif;
+        }
+
+        .profiles {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 20px;
+        }
+
+        .profile {
+            width: 300px;
+            height: 350px;
+            margin: 20px;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .front {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+            box-shadow: 0 4px 8px rgba(15, 203, 255, 0.816);
+            border-radius: 10px;
+            background-color: #000000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .front img:first-child {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            transition: transform 0.5s;
+            cursor: pointer;
+        }
+
+        .front h2 {
+            text-align: center;
+            color: #00ff62;
+            font-weight: 450;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin: 10px 0;
+        }
+
+        .front p {
+            text-align: center;
+            color: #ffffff;
+            margin: 10px 0;
+            display: none;
+        }
+
+        .button {
+            position: relative;
+            top: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .button button {
+            background: black;
+            font-size: 20px;
+            padding: 5px 20px;
+            border-radius: 5px;
+            color: rgb(255, 0, 0);
+            font-weight: bolder;
+            height: 40px;
+            border-color: white;
+            cursor: pointer;
+        }
+
+        .button button:hover {
+            transform: scale(1.1);
+            transition-duration: 0.2s;
+            box-shadow: red 0 0 10px;
+            text-shadow: rgb(83, 83, 83) 0 0 1px;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .overlay img.enlarged {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            cursor: pointer;
+            transform: scale(2);
+            transition: transform 0.3s ease-out;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="profiles">
+        <div class="profile" data-index="0">
+            <div class="front">
+                <img src="images/1.jpg" alt="Profile 1 Image">
+                <h2>ANISH</h2>
+                <p>anish_2301mc40@iitp.ac.in</p>
+            </div>
+            <div class="button">
+                <button>View QR</button>
+            </div>
+        </div>
+        <div class="profile" data-index="1">
+            <div class="front">
+                <img src="images/2.jpg" alt="Profile 2 Image">
+                <h2>DIPTANSHU</h2>
+                <p>diptanshu_2301mm32@iitp.ac.in</p>
+            </div>
+            <div class="button">
+                <button>View QR</button>
+            </div>
+        </div>
+        <div class="profile" data-index="2">
+            <div class="front">
+                <img src="images/3.jpg" alt="Profile 3 Image">
+                <h2>JATIN</h2>
+                <p>jatin_2301ec12@iitp.ac.in</p>
+            </div>
+            <div class="button">
+                <button>View QR</button>
+            </div>
+        </div>
+        <div class="profile" data-index="3">
+            <div class="front">
+                <img src="images/4.jpg" alt="Profile 4 Image">
+                <h2>SHASHWAT</h2>
+                <p>shashwat_2301cs50@iitp.ac.in</p>
+            </div>
+            <div class="button">
+                <button>View QR</button>
+            </div>
+        </div>
+        <div class="profile" data-index="4">
+            <div class="front">
+                <img src="images/5.jpg" alt="Profile 5 Image">
+                <h2>HEMANT</h2>
+                <p>hemant_2301cs20@iitp.ac.in</p>
+            </div>
+            <div class="button">
+                <button>View QR</button>
+            </div>
+        </div>
+        <div class="profile" data-index="5">
+            <div class="front">
+                <img src="images/6.jpg" alt="Profile 6 Image">
+                <h2>RISHI</h2>
+                <p>rishi_2301cs83@iitp.ac.in</p>
+            </div>
+            <div class="button">
+                <button>View QR</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const imgsrc = ['images/1.jpg', 'images/2.jpg', 'images/3.jpg', 'images/4.jpg', 'images/5.jpg', 'images/6.jpg'];
+        const qrsrc = ['qr/1.png', 'qr/2.png', 'qr/3.png', 'qr/4.png', 'qr/5.png', 'qr/6.png'];
+        const names = ['ANISH', 'DIPTANSHU', 'JATIN', 'SHASHWAT', 'HEMANT', 'RISHI'];
+        const mails = ['anish_2301mc40@iitp.ac.in', 'diptanshu_2301mm32@iitp.ac.in', 'jatin_2301ec12@iitp.ac.in', 'shashwat_2301cs50@iitp.ac.in', 'hemant_2301cs20@iitp.ac.in', 'rishi_2301cs83@iitp.ac.in'];
+
+        document.querySelectorAll('.profile').forEach((profile, index) => {
+            const img = profile.querySelector('.front img:first-child');
+            const h2 = profile.querySelector('.front h2');
+            const p = profile.querySelector('.front p');
+            const button = profile.querySelector('.button button');
+
+            img.src = imgsrc[index];
+            h2.textContent = names[index];
+            p.textContent = mails[index];
+
+            img.addEventListener('click', () => {
+                if (img.src.includes('qr')) {
+                    const overlay = document.createElement('div');
+                    overlay.classList.add('overlay');
+                    const enlargedImg = document.createElement('img');
+                    enlargedImg.src = qrsrc[index];
+                    enlargedImg.classList.add('enlarged');
+                    overlay.appendChild(enlargedImg);
+                    document.body.appendChild(overlay);
+                    enlargedImg.addEventListener('click', () => {
+                        document.body.removeChild(overlay);
+                    });
+                }
+            });
+
+            button.addEventListener('click', () => {
+                if (button.innerHTML === 'View QR') {
+                    img.src = qrsrc[index];
+                    img.style.borderRadius = '10px';
+                    img.style.transform = 'rotate(360deg)';
+                    h2.style.display = 'none';
+                    p.style.display = 'block';
+                    button.innerHTML = 'Go Back';
+                } else {
+                    img.src = imgsrc[index];
+                    img.style.borderRadius = '50%';
+                    img.style.transform = 'rotate(0deg)';
+                    h2.style.display = 'block';
+                    p.style.display = 'none';
+                    button.innerHTML = 'View QR';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
